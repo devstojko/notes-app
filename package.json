@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
-  "name": "react-meteor-boilerplate",
+  "name": "notes-app",
   "private": true,
   "scripts": {
     "start": "meteor run"
