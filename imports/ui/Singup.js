@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
+import { func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
+import { createContainer } from 'meteor/react-meteor-data';
 
-export default class Singup extends Component {
+export class Singup extends Component {
   
   state = {
     error: ''
   }
 
+  static propTypes = {
+    createUser: func.isRequired
+  }
+
   onSubmit = (e) => {
+    const { createUser } = this.props;
     e.preventDefault();
 
     const email = this.email.value.trim();
@@ -20,10 +27,9 @@ export default class Singup extends Component {
     }
 
     // createUser({email: let email, password: let password })
-    return Accounts.createUser({ email, password }, error => (error ?
-      this.setState({ error: error.reason })
-      :
-      this.setState({ error: '' })));
+    createUser({ email, password }, error => (error 
+      ? this.setState({ error: error.reason })
+      : this.setState({ error: '' })));
   }
 
   focus() {
@@ -32,12 +38,14 @@ export default class Singup extends Component {
   }
 
   render() {
+    const { error } = this.state;
+    const renderErrorBox = () => error && <p className="error-box" >{error}</p>;    
     return (
       <div className="boxed-view" >
         <div className="boxed-view__box">
           <h1>Singup</h1>
 
-          {this.state.error && <p>{this.state.error}</p>}
+          {renderErrorBox()}
 
           <form className="boxed-view__form" onSubmit={this.onSubmit} noValidate>
             <input
@@ -62,3 +70,9 @@ export default class Singup extends Component {
     );
   }
 }
+
+export default createContainer(() => {
+  return {
+    createUser: Accounts.createUser
+  };
+}, Singup);
