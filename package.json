@@ -3,8 +3,9 @@
   "name": "notes-app",
   "private": true,
   "scripts": {
-    "start": "meteor run",
-    "test": "meteor test --driver-package=practicalmeteor:mocha"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
@@ -15,6 +16,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2",
+    "react-scripts": "^1.1.5",
     "simpl-schema": "^0.3.1"
   },
   "engines": {
